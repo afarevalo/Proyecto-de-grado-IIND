@@ -13,6 +13,7 @@ library(gridExtra)
 library(patchwork)
 library(stats)
 library(readxl)
+library(writexl)
 
 # Manejo del directorio
 getwd()
@@ -40,31 +41,60 @@ Kennedy_Por_Dias <- import("3.11 Kennedy_Por_Dias.RDS")
 PuenteAranda_Por_Dias <- import("3.12 PuenteAranda_Por_Dias.RDS")
 Centro_Por_Dias <- import("3.13 Centro_Por_Dias.RDS")
 
-# Lista de todas las bases de datos
-list_dfs <- list(Guaymaral_Por_Dias, MinAmbiente_Por_Dias, Suba_Por_Dias, Usaquen_Por_Dias,
-                 Ferias_Por_Dias, SanCristobal_Por_Dias, Tunal_Por_Dias, Bolivia_Por_Dias,
-                 Carvajal_Por_Dias, Fontibon_Por_Dias, Kennedy_Por_Dias, PuenteAranda_Por_Dias,
-                 Centro_Por_Dias)
+# Unir todas las bases de datos en una sola
+all_data <- rbind(Guaymaral_Por_Dias, MinAmbiente_Por_Dias, Suba_Por_Dias, 
+                  Usaquen_Por_Dias, Ferias_Por_Dias, SanCristobal_Por_Dias, 
+                  Tunal_Por_Dias, Bolivia_Por_Dias, Carvajal_Por_Dias, 
+                  Fontibon_Por_Dias, Kennedy_Por_Dias, PuenteAranda_Por_Dias, 
+                  Centro_Por_Dias)
 
-# Unimos todas las bases en una sola
-combined_data <- bind_rows(list_dfs, .id = "source")
+#view(all_data)
+#str(all_data)
 
-# Agrupamos por fecha y calculamos el promedio sin contar NA
-averages <- combined_data %>%
-  group_by(myday) %>%
-  summarise(no2_avg = mean(no2, na.rm = TRUE), .groups = "drop")
+# Exprtar data
+#write_xlsx(all_data, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/4. Estaciones_Por_Dias.xlsx")
 
-# Importamos la base de datos Bogota_Prom_Dias
-Bogota_Prom_Dias <- read_excel("2. Datos (2021 -2024) - Diarios.xlsx")
+head(all_data)
 
-# Realizamos el merge y actualizamos la columna o3 en Bogota_Prom_Dias
-Bogota_Prom_Dias_updated <- Bogota_Prom_Dias %>%
-  left_join(averages, by = "myday") %>%
-  mutate(no2 = coalesce(no2_avg, no2)) %>%
-  select(-no2_avg) # Eliminamos la columna auxiliar o3_avg
+# Renombrar la variable "myday" como "day"
+all_data$day <- all_data$myday
 
-Bogota_Prom_Dias_updated
+# Importar base vacia
+Bogota_Promedio_Dias <- read_excel("2. Datos (2021 -2024) - Diarios.xlsx")
+view(Bogota_Promedio_Dias)
 
+# Calcula los promedios diarios de cada contaminante y otras variables
+promedios_diarios <- all_data %>%
+  group_by(day) %>%
+  summarise(across(.cols = c(o3, no2, pm25, co, so2, pm10, bc, tmp, rh, rain, radsolar, co2, ws), .fns = ~mean(.x, na.rm = TRUE)))
 
+# Asegurándonos de que las fechas están en formato de fecha si no lo están
+promedios_diarios$day <- as.Date(promedios_diarios$day)
+Bogota_Promedio_Dias$myday <- as.Date(Bogota_Promedio_Dias$myday)
 
+# Renombrar la columna de fecha en promedios_diarios para coincidir con Bogota_Promedio_Dias
+promedios_diarios <- rename(promedios_diarios, myday = day)
+
+# Uniendo los datos
+Bogota_Promedio_Dias <- left_join(Bogota_Promedio_Dias, promedios_diarios, by = "myday")
+head(Bogota_Promedio_Dias)
+
+# Eliminar columnas que terminan en ".x" y están completamente vacías
+Bogota_Promedio_Dias <- Bogota_Promedio_Dias %>%
+  select(-matches("\\.x$")) %>%
+  select_if(~ !all(is.na(.)))
+
+# Verificar el resultado
+str(Bogota_Promedio_Dias)
+view(Bogota_Promedio_Dias)
+
+# Renombrar variables quitando el sufijo ".y"
+Bogota_Promedio_Dias <- Bogota_Promedio_Dias %>%
+  rename_with(~ gsub("\\.y$", "", .x), ends_with(".y"))
+
+# Verificar los cambios
+names(Bogota_Promedio_Dias)
+
+# Guardar como archivo .RDS:
+#saveRDS(Bogota_Promedio_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/4. Bogota_Promedio_Dias.rds")
 
