@@ -97,4 +97,3 @@ names(Bogota_Promedio_Dias)
 
 # Guardar como archivo .RDS:
 #saveRDS(Bogota_Promedio_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/4. Bogota_Promedio_Dias.rds")
-

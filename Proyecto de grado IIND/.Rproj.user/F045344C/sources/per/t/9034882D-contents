@@ -156,6 +156,7 @@ Suba_Por_Dias <- Suba_Por_Dias %>%
 
 summary(Suba_Por_Dias)
 
+
 # Guardar como archivo .RDS:
 #saveRDS(Suba_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/Suba_Por_Dias.rds")
 
@@ -646,3 +647,90 @@ summary(Centro_Por_Dias)
 #saveRDS(Centro_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/Centro_Por_Dias.rds")
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+library(dplyr)
+library(openxlsx)
+
+
+# Asumiendo que las variables resumen ya están calculadas y almacenadas en dataframes
+# Como ejemplo, usaremos summary() directamente sobre los datos procesados
+summary_guaymaral <- summary(Guaymaral_Por_Dias)
+summary_minambiente <- summary(MinAmbiente_Por_Dias)
+summary_suba <- summary(Suba_Por_Dias)
+summary_usaquen <- summary(Usaquen_Por_Dias)
+summary_ferias <- summary(Ferias_Por_Dias)
+summary_SanCristobal <- summary(SanCristobal_Por_Dias)
+summary_Tunal <- summary(Tunal_Por_Dias)
+summary_Bolivia <- summary(Bolivia_Por_Dias)
+summary_Carvajal <- summary(Carvajal_Por_Dias)
+summary_Fontibon <- summary(Fontibon_Por_Dias)
+summary_Kennedy <- summary(Kennedy_Por_Dias)
+summary_PuenteAranda <- summary(PuenteAranda_Por_Dias)
+summary_Centro <- summary(Centro_Por_Dias)
+
+# Convertir los resúmenes en dataframes (ajustar según lo necesario)
+df_guaymaral <- as.data.frame(t(summary_guaymaral))
+df_minambiente <- as.data.frame(t(summary_minambiente))
+df_suba <- as.data.frame(t(summary_suba))
+df_usaquen <- as.data.frame(t(summary_usaquen))
+df_Ferias <- as.data.frame(t(summary_ferias))
+df_SanCristobal <- as.data.frame(t(summary_SanCristobal))
+df_Tunal <- as.data.frame(t(summary_Tunal))
+df_Bolivia <- as.data.frame(t(summary_Bolivia))
+df_Carvajal <- as.data.frame(t(summary_Carvajal))
+df_Fontibon <- as.data.frame(t(summary_Fontibon))
+df_Kennedy <- as.data.frame(t(summary_Kennedy))
+df_PuenteAranda <- as.data.frame(t(summary_PuenteAranda))
+df_Centro <- as.data.frame(t(summary_Centro))
+
+# Añadir columna para identificar la fuente
+df_guaymaral$Fuente <- "Guaymaral"
+df_minambiente$Fuente <- "MinAmbiente"
+df_suba$Fuente <- "Suba"
+df_usaquen$Fuente <- "Usaquen"
+df_Ferias$Fuente <- "Ferias"
+df_SanCristobal$Fuente <- "SanCristobal"
+df_Tunal$Fuente <- "Tunal"
+df_Bolivia$Fuente <- "Bolivia"
+df_Carvajal$Fuente <- "Carvajal"
+df_Fontibon$Fuente <- "Fontibon"
+df_Kennedy$Fuente <- "Kennedy"
+df_PuenteAranda$Fuente <- "PuenteAranda"
+df_Centro$Fuente <- "Centro"
+
+df_suba$Fuente <- "Suba"# Combinar los dataframes
+df_total <- bind_rows(df_guaymaral, df_minambiente, df_suba,df_usaquen, df_Ferias, df_SanCristobal, df_Tunal, df_Bolivia, df_Carvajal, df_Fontibon, df_Kennedy, df_PuenteAranda, df_Centro)
+
+
+
+
+
+# Ruta de guardado
+ruta_guardado <- "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/Estadisticas_Descriptivas.xlsx"
+
+# Exportar a Excel
+write.xlsx(df_total, ruta_guardado)
