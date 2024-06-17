@@ -49,12 +49,7 @@ all_data <- rbind(Guaymaral_Por_Dias, MinAmbiente_Por_Dias, Suba_Por_Dias,
                   Centro_Por_Dias)
 
 #view(all_data)
-#str(all_data)
-
-# Exprtar data
-#write_xlsx(all_data, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/4. Estaciones_Por_Dias.xlsx")
-
-head(all_data)
+str(all_data)
 
 # Renombrar la variable "myday" como "day"
 all_data$day <- all_data$myday
@@ -66,7 +61,7 @@ view(Bogota_Promedio_Dias)
 # Calcula los promedios diarios de cada contaminante y otras variables
 promedios_diarios <- all_data %>%
   group_by(day) %>%
-  summarise(across(.cols = c(o3, no2, pm25, co, so2, pm10, bc, tmp, rh, rain, radsolar, co2, ws), .fns = ~mean(.x, na.rm = TRUE)))
+  summarise(across(.cols = c(o3, no2, pm25, co, so2, pm10, bc, tmp, rh, rain, radsolar, co2, pressure, ws), .fns = ~mean(.x, na.rm = TRUE)))
 
 # Asegurándonos de que las fechas están en formato de fecha si no lo están
 promedios_diarios$day <- as.Date(promedios_diarios$day)
@@ -96,4 +91,8 @@ Bogota_Promedio_Dias <- Bogota_Promedio_Dias %>%
 names(Bogota_Promedio_Dias)
 
 # Guardar como archivo .RDS:
-#saveRDS(Bogota_Promedio_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/4. Bogota_Promedio_Dias.rds")
+saveRDS(Bogota_Promedio_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/4. Bogota_Promedio_Dias.rds")
+view(Bogota_Promedio_Dias)
+
+# Exprtar data
+write_xlsx(Bogota_Promedio_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/4. Bogota_Promedio_Dias.xlsx")

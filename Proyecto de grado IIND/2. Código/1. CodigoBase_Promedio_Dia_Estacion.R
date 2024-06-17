@@ -48,7 +48,8 @@ promedios_diarios <- Guaymaral_Por_Horas %>%
     no2_avg = mean(NO2, na.rm = TRUE),
     pm25_avg = mean(PM25, na.rm = TRUE),
     co_avg = mean(CO, na.rm = TRUE),
-    so2_avg = mean(SO2, na.rm = TRUE)
+    so2_avg = mean(SO2, na.rm = TRUE),
+    PresionBaro_avg = mean(PresionBaro, na.rm = TRUE)
   )
 
 Guaymaral_Por_Dias <- Guaymaral_Por_Dias %>%
@@ -64,14 +65,14 @@ Guaymaral_Por_Dias <- Guaymaral_Por_Dias %>%
     no2 = if_else(is.na(no2), no2_avg, no2),
     pm25 = if_else(is.na(pm25), pm25_avg, pm25),
     co = if_else(is.na(co), co_avg, co),
-    so2 = if_else(is.na(so2), so2_avg, so2)
+    pressure = if_else(is.na(pressure), PresionBaro_avg, pressure)
   ) %>%
   select(-ends_with("_avg"))  # Elimina las columnas de promedios temporales
 
 summary(Guaymaral_Por_Dias)
 
 # Guardar como archivo .RDS:
-#saveRDS(Guaymaral_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/Guaymaral_Por_Dias.rds")
+saveRDS(Guaymaral_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.1 Guaymaral_Por_Dias.rds")
 
 #-------------------------------------------------------------------------------
 
@@ -112,7 +113,7 @@ MinAmbiente_Por_Dias <- MinAmbiente_Por_Dias %>%
 summary(MinAmbiente_Por_Dias)
 
 # Guardar como archivo .RDS:
-#saveRDS(MinAmbiente_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/MinAmbiente_Por_Dias.rds")
+saveRDS(MinAmbiente_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.2 MinAmbiente_Por_Dias.rds")
 
 #-------------------------------------------------------------------------------
 
@@ -158,7 +159,7 @@ summary(Suba_Por_Dias)
 
 
 # Guardar como archivo .RDS:
-#saveRDS(Suba_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/Suba_Por_Dias.rds")
+saveRDS(Suba_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.3 Suba_Por_Dias.rds")
 
 #-------------------------------------------------------------------------------
 
@@ -204,7 +205,7 @@ Usaquen_Por_Dias <- Usaquen_Por_Dias %>%
 summary(Usaquen_Por_Dias)
 
 # Guardar como archivo .RDS:
-#saveRDS(Usaquen_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/Usaquen_Por_Dias.rds")
+saveRDS(Usaquen_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.4 Usaquen_Por_Dias.rds")
 
 
 #-------------------------------------------------------------------------------
@@ -231,6 +232,7 @@ promedios_diarios <- Ferias_Por_Horas %>%
     no2_avg = mean(NO2, na.rm = TRUE),
     pm25_avg = mean(PM25, na.rm = TRUE),
     co_avg = mean(CO, na.rm = TRUE),
+    PresionBaro_avg = mean(PresionBaro, na.rm = TRUE)
   )
 
 Ferias_Por_Dias <- Ferias_Por_Dias %>%
@@ -245,13 +247,14 @@ Ferias_Por_Dias <- Ferias_Por_Dias %>%
     no2 = if_else(is.na(no2), no2_avg, no2),
     pm25 = if_else(is.na(pm25), pm25_avg, pm25),
     co = if_else(is.na(co), co_avg, co),
+    pressure = if_else(is.na(pressure), PresionBaro_avg, pressure)
   ) %>%
   select(-ends_with("_avg"))  # Elimina las columnas de promedios temporales
 
 summary(Ferias_Por_Dias)
 
 # Guardar como archivo .RDS:
-#saveRDS(Ferias_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/Ferias_Por_Dias.rds")
+saveRDS(Ferias_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.5 Ferias_Por_Dias.rds")
 
 #-------------------------------------------------------------------------------
 
@@ -301,7 +304,7 @@ SanCristobal_Por_Dias <- SanCristobal_Por_Dias %>%
 summary(SanCristobal_Por_Dias)
 
 # Guardar como archivo .RDS:
-#saveRDS(SanCristobal_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/SanCristobal_Por_Dias.rds")
+saveRDS(SanCristobal_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.6 SanCristobal_Por_Dias.rds")
 
 #-------------------------------------------------------------------------------
 
@@ -329,7 +332,8 @@ promedios_diarios <- Tunal_Por_Horas %>%
     pm25_avg = mean(PM25, na.rm = TRUE),
     co_avg = mean(CO, na.rm = TRUE),
     so2_avg = mean(SO2, na.rm = TRUE),
-    bc_avg = mean(BC, na.rm = TRUE)
+    bc_avg = mean(BC, na.rm = TRUE),
+    PresionBaro_avg = mean(PresionBaro, na.rm = TRUE)
   )
 
 Tunal_Por_Dias <- Tunal_Por_Dias %>%
@@ -346,14 +350,15 @@ Tunal_Por_Dias <- Tunal_Por_Dias %>%
     pm25 = if_else(is.na(pm25), pm25_avg, pm25),
     co = if_else(is.na(co), co_avg, co),
     so2 = if_else(is.na(so2), so2_avg, so2),
-    bc = if_else(is.na(bc), bc_avg, bc)
+    bc = if_else(is.na(bc), bc_avg, bc),
+    pressure = if_else(is.na(pressure), PresionBaro_avg, pressure)
   ) %>%
   select(-ends_with("_avg"))  # Elimina las columnas de promedios temporales
 
 summary(Tunal_Por_Dias)
 
 # Guardar como archivo .RDS:
-#saveRDS(Tunal_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/Tunal_Por_Dias.rds")
+saveRDS(Tunal_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.7 Tunal_Por_Dias.rds")
 
 #-------------------------------------------------------------------------------
 
@@ -393,7 +398,7 @@ Bolivia_Por_Dias <- Bolivia_Por_Dias %>%
 summary(Bolivia_Por_Dias)
 
 # Guardar como archivo .RDS:
-#saveRDS(Bolivia_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/Bolivia_Por_Dias.rds")
+saveRDS(Bolivia_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.8 Bolivia_Por_Dias.rds")
 
 #-------------------------------------------------------------------------------
 
@@ -438,7 +443,7 @@ Carvajal_Por_Dias <- Carvajal_Por_Dias %>%
 summary(Carvajal_Por_Dias)
 
 # Guardar como archivo .RDS:
-#saveRDS(Carvajal_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/Carvajal_Por_Dias.rds")
+saveRDS(Carvajal_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.9 Carvajal_Por_Dias.rds")
 
 #-------------------------------------------------------------------------------
 
@@ -464,7 +469,8 @@ promedios_diarios <- Fontibon_Por_Horas %>%
     pm25_avg = mean(PM25, na.rm = TRUE),
     co_avg = mean(CO, na.rm = TRUE),
     so2_avg = mean(SO2, na.rm = TRUE),
-    bc_avg = mean(BC, na.rm = TRUE)
+    bc_avg = mean(BC, na.rm = TRUE),
+    PresionBaro_avg = mean(PresionBaro, na.rm = TRUE)
   )
 
 Fontibon_Por_Dias <- Fontibon_Por_Dias %>%
@@ -480,14 +486,15 @@ Fontibon_Por_Dias <- Fontibon_Por_Dias %>%
     pm25 = if_else(is.na(pm25), pm25_avg, pm25),
     co = if_else(is.na(co), co_avg, co),
     so2 = if_else(is.na(so2), so2_avg, so2),
-    bc = if_else(is.na(bc), bc_avg, bc)
+    bc = if_else(is.na(bc), bc_avg, bc),
+    pressure = if_else(is.na(pressure), PresionBaro_avg, pressure)
   ) %>%
   select(-ends_with("_avg"))  # Elimina las columnas de promedios temporales
 
 summary(Fontibon_Por_Dias)
 
 # Guardar como archivo .RDS:
-#saveRDS(Fontibon_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/Fontibon_Por_Dias.rds")
+saveRDS(Fontibon_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.10 Fontibon_Por_Dias.rds")
 
 #-------------------------------------------------------------------------------
 
@@ -540,7 +547,7 @@ Kennedy_Por_Dias <- Kennedy_Por_Dias %>%
 summary(Kennedy_Por_Dias)
 
 # Guardar como archivo .RDS:
-#saveRDS(Kennedy_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/Kennedy_Por_Dias.rds")
+saveRDS(Kennedy_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.11 Kennedy_Por_Dias.rds")
 
 #-------------------------------------------------------------------------------
 
@@ -567,7 +574,8 @@ promedios_diarios <- PuenteAranda_Por_Horas %>%
     pm25_avg = mean(PM25, na.rm = TRUE),
     co_avg = mean(CO, na.rm = TRUE),
     so2_avg = mean(SO2, na.rm = TRUE),
-    bc_avg = mean(BC, na.rm = TRUE)
+    bc_avg = mean(BC, na.rm = TRUE),
+    PresionBaro_avg = mean(PresionBaro, na.rm = TRUE)
   )
 
 PuenteAranda_Por_Dias <- PuenteAranda_Por_Dias %>%
@@ -584,14 +592,15 @@ PuenteAranda_Por_Dias <- PuenteAranda_Por_Dias %>%
     pm25 = if_else(is.na(pm25), pm25_avg, pm25),
     co = if_else(is.na(co), co_avg, co),
     so2 = if_else(is.na(so2), so2_avg, so2),
-    bc = if_else(is.na(bc), bc_avg, bc)
+    bc = if_else(is.na(bc), bc_avg, bc),
+    pressure = if_else(is.na(pressure), PresionBaro_avg, pressure)
   ) %>%
   select(-ends_with("_avg"))  # Elimina las columnas de promedios temporales
 
 summary(PuenteAranda_Por_Dias)
 
 # Guardar como archivo .RDS:
-#saveRDS(PuenteAranda_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/PuenteAranda_Por_Dias.rds")
+saveRDS(PuenteAranda_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.12 PuenteAranda_Por_Dias.rds")
 
 #-------------------------------------------------------------------------------
 
@@ -644,33 +653,11 @@ Centro_Por_Dias <- Centro_Por_Dias %>%
 summary(Centro_Por_Dias)
 
 # Guardar como archivo .RDS:
-#saveRDS(Centro_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/Centro_Por_Dias.rds")
+saveRDS(Centro_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.13Centro_Por_Dias.rds")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# -----------------------------------------------------------
+# Sección 1: Descarga de las medias de los contaminates 
+# -----------------------------------------------------------
 
 library(dplyr)
 library(openxlsx)
@@ -725,12 +712,8 @@ df_Centro$Fuente <- "Centro"
 df_suba$Fuente <- "Suba"# Combinar los dataframes
 df_total <- bind_rows(df_guaymaral, df_minambiente, df_suba,df_usaquen, df_Ferias, df_SanCristobal, df_Tunal, df_Bolivia, df_Carvajal, df_Fontibon, df_Kennedy, df_PuenteAranda, df_Centro)
 
-
-
-
-
 # Ruta de guardado
-ruta_guardado <- "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/Estadisticas_Descriptivas.xlsx"
+ruta_guardado <- "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/4. Estadisticas_Descriptivas.xlsx"
 
 # Exportar a Excel
 write.xlsx(df_total, ruta_guardado)
