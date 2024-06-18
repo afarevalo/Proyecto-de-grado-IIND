@@ -23,7 +23,6 @@ library(officer)
 library(flextable)
 library(pscl)
 
-
 # Manejo del directorio
 getwd()
 directorio <- "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos"
@@ -216,7 +215,7 @@ ggsave("12. Evoluación de la probabilidad con Viento - PM2.5.png",
 
 ## Variable de excesos y modelación binaria
 # Crear variables de los excedentes
-data <- data %>% mutate(no2_new = ((no2/(10^9))*(1000)*(1/((1*0.082*(tmp+273.15))/0.74289484))*(46.0055/1)*((10^6)/1)))
+data <- data %>% mutate(no2_new = ((no2/(10^9))*(1000)*(1/((1*0.082*(tmp+273.15))/(pressure/760)))*(46.0055/1)*((10^6)/1)))
 data <- data %>% mutate(ex_no2 = case_when(no2_new >= 25 ~ 1,
                                           .default = 0))
 

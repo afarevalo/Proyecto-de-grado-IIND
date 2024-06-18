@@ -397,6 +397,8 @@ Bolivia_Por_Dias <- Bolivia_Por_Dias %>%
 
 summary(Bolivia_Por_Dias)
 
+str(Bolivia_Por_Dias)
+
 # Guardar como archivo .RDS:
 saveRDS(Bolivia_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.8 Bolivia_Por_Dias.rds")
 

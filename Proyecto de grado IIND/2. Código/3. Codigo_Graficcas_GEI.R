@@ -41,7 +41,6 @@ data3 <- import("4. Estaciones_Por_Dias_BC.xlsx")
 modelo1 <- auto.arima(data$pm25)
 modelo1
 
-
 skim(data)
 glimpse(data)
 stargazer(data, 
@@ -92,7 +91,7 @@ ggsave("1. Análisis del CO desde 2021 hasta 2024.png",
 
 
 # Serie de tiempo NO2
-data <- data %>% mutate(no2_new = ((no2/(10^9))*(1000)*(1/((1*0.082*(tmp+273.15))/0.74289484))*(46.0055/1)*((10^6)/1)))
+data <- data %>% mutate(no2_new = ((no2/(10^9))*(1000)*(1/((1*0.082*(tmp+273.15))/(pressure/760)))*(46.0055/1)*((10^6)/1)))
 p_no2 <- ggplot(data, aes(myday, no2_new)) +
   geom_line() +
   labs(x = "Tiempo", 
