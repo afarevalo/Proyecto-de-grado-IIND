@@ -29,6 +29,8 @@ da.ts <- ts(da, start = as.Date("2021-01-01"), frequency = 1)
 plot(da.ts)
 str(da)
 
+# Identificación nivel regresivo y prueba de cointegración
+
 nivelka=VARselect(da, lag.max = 7, type = "const")
 nivelka$selection
 
