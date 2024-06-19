@@ -38,9 +38,6 @@ data <- import("4. Bogota_Promedio_Dias.RDS")
 data2 <- import("4. Estaciones_Por_Dias_CO2.xlsx")
 data3 <- import("4. Estaciones_Por_Dias_BC.xlsx")
 
-modelo1 <- auto.arima(data$pm25)
-modelo1
-
 skim(data)
 glimpse(data)
 stargazer(data, 
@@ -132,12 +129,6 @@ p_pm25 <- ggplot(data, aes(myday, pm25)) +
 p_pm25
 p_pm25 + geom_hline(aes(yintercept = 15), data, color = "red")
 
-
-library(tseries)
-library(forecast)
-modelo1 <- auto.arima(pm25)
-# mstl descomponer la serie,  
-
 # Exportar como PNG
 ggsave("3. Análisis del PM2.5 desde 2021 hasta 2024.png", 
        plot = last_plot(),
@@ -146,7 +137,6 @@ ggsave("3. Análisis del PM2.5 desde 2021 hasta 2024.png",
 
 # Crear series de tiempo
 ts_pm25 <- ts(data$pm25, frequency = 365)
-
 
 # Análisis de estacionalidad usando ACF y PACF para PM2.5
 acf_pm25 <- Acf(ts_pm25, main="Autocorrelación PM2.5")

@@ -47,9 +47,9 @@ data <- data %>% mutate(o3_new = ((o3/(10^9))*(1000)*(1/((1*0.082*(tmp+273.15))/
 head(data)
 
 # Exprtar data
-#write_xlsx(data, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/7. Bogota_Promedio_Dias_Act.xlsx")
+write_xlsx(data, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/6. Bogota_Promedio_Dias_Act_Todos.xlsx")
 
-data <- import("7. Bogota_Promedio_Dias_Act.xlsx")
+data <- import("6. Bogota_Promedio_Dias_Act_Todos.xlsx")
 
 # -----------------------------------------------------------
 # Sección 2: Analisis de correlacion entre variables 
@@ -93,4 +93,19 @@ corrplot(correlation_matrix_spearman, method = "color", type = "upper", order = 
          tl.col = "black", tl.srt = 45, # Ajustar el color y la rotación de las etiquetas
          diag = FALSE) # No mostrar la diagonal principal
 title("Matriz de Correlación de Spearman", col.main = "black", font.main = 4)
+dev.off() # Cerrar el dispositivo de gráficos
+
+# Variables para el modelo VAR
+# Calculando la matriz de correlación de Spearman
+correlation_matrix_spearman <- cor(data[, c("pm25", "tmp", "radsolar", "pressure", "ws")], method = "spearman")
+print("Matriz de Correlación de Spearman:")
+print(correlation_matrix_spearman)
+
+# Generar el gráfico
+png("C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/4. Gráficos/23. Matriz_de_Correlacion_VAR.png")
+corrplot(correlation_matrix_spearman, method = "color", type = "upper", order = "hclust",
+         addCoef.col = "black", # Añadir coeficientes de correlación a la gráfica
+         tl.col = "black", tl.srt = 45, # Ajustar el color y la rotación de las etiquetas
+         diag = FALSE) # No mostrar la diagonal principal
+title("Matriz de Correlación Variables VAR", col.main = "black", font.main = 4)
 dev.off() # Cerrar el dispositivo de gráficos
