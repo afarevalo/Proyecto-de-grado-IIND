@@ -49,7 +49,7 @@ list.files()
 
 ## Importacion de los datos ------------------
 install_formats() # Cuestiones de importacion de archivos del paquete rio
-da <- import("6. Bogota_Promedio_Dias_Act_VAR_1.xlsx")
+da <- import("7. Bogota_Promedio_Dias_Act_VECM.xlsx")
 
 # Convertir la base de datos "da" a formato ts
 da.ts <- ts(da[2:6], start = as.Date(2021), frequency = 365)
@@ -60,7 +60,7 @@ plot(da.ts)
 # -----------------------------------------------------------
 
 # Evaluará modelos VAR con hasta 7 retardos.
-nivelka=VARselect(da.ts, lag.max = 7, type = "const")
+nivelka=VARselect(da.ts, lag.max = 8, type = "const")
 nivelka$selection
 
 # AIC(n)  HQ(n)  SC(n) FPE(n) 
@@ -79,8 +79,8 @@ niv1=VARorder(da.ts)
 johatest=ca.jo(da.ts, type = "trace", K=8, ecdet ="none", spec = "longrun")
 summary(johatest)
 
-# r = 0  | 623.11 66.49 70.60 78.87
-# Como 623.11 > ... , el rango de la martiz es 0 entonces si estan cointegradas,
+# r = 0  | 282.01 66.49 70.60 78.87
+# Como 282.01 > ... , el rango de la martiz es 0 entonces si estan cointegradas,
 # Si hay un equilibrio a largo plazo.
 # Hay cointregracion de rango completo.
 

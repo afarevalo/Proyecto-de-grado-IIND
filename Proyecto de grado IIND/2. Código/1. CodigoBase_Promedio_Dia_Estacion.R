@@ -71,8 +71,17 @@ Guaymaral_Por_Dias <- Guaymaral_Por_Dias %>%
 
 summary(Guaymaral_Por_Dias)
 
+# Guardar la salida del resumen estadístico en una variable
+salida <- capture.output(summary(Guaymaral_Por_Dias))
+
+# Construir la ruta completa del archivo de Word
+ruta_archivo <- "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/5. Salidas de R/1. Guaymaral_Por_Dias.doc"
+
+# Escribir la salida en el archivo de Word
+writeLines(salida, ruta_archivo)
+
 # Guardar como archivo .RDS:
-saveRDS(Guaymaral_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.1 Guaymaral_Por_Dias.rds")
+#saveRDS(Guaymaral_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.1 Guaymaral_Por_Dias.rds")
 
 #-------------------------------------------------------------------------------
 
@@ -112,8 +121,17 @@ MinAmbiente_Por_Dias <- MinAmbiente_Por_Dias %>%
 
 summary(MinAmbiente_Por_Dias)
 
+# Guardar la salida del resumen estadístico en una variable
+salida <- capture.output(summary(MinAmbiente_Por_Dias))
+
+# Construir la ruta completa del archivo de Word
+ruta_archivo <- "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/5. Salidas de R/2. MinAmbiente_Por_Dias.doc"
+
+# Escribir la salida en el archivo de Word
+writeLines(salida, ruta_archivo)
+
 # Guardar como archivo .RDS:
-saveRDS(MinAmbiente_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.2 MinAmbiente_Por_Dias.rds")
+# saveRDS(MinAmbiente_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.2 MinAmbiente_Por_Dias.rds")
 
 #-------------------------------------------------------------------------------
 
@@ -157,9 +175,17 @@ Suba_Por_Dias <- Suba_Por_Dias %>%
 
 summary(Suba_Por_Dias)
 
+# Guardar la salida del resumen estadístico en una variable
+salida <- capture.output(summary(Suba_Por_Dias))
+
+# Construir la ruta completa del archivo de Word
+ruta_archivo <- "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/5. Salidas de R/3. Suba_Por_Dias.doc"
+
+# Escribir la salida en el archivo de Word
+writeLines(salida, ruta_archivo)
 
 # Guardar como archivo .RDS:
-saveRDS(Suba_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.3 Suba_Por_Dias.rds")
+#saveRDS(Suba_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.3 Suba_Por_Dias.rds")
 
 #-------------------------------------------------------------------------------
 
@@ -204,9 +230,17 @@ Usaquen_Por_Dias <- Usaquen_Por_Dias %>%
 
 summary(Usaquen_Por_Dias)
 
-# Guardar como archivo .RDS:
-saveRDS(Usaquen_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.4 Usaquen_Por_Dias.rds")
+# Guardar la salida del resumen estadístico en una variable
+salida <- capture.output(summary(Usaquen_Por_Dias))
 
+# Construir la ruta completa del archivo de Word
+ruta_archivo <- "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/5. Salidas de R/4. Usaquen_Por_Dias.doc"
+
+# Escribir la salida en el archivo de Word
+writeLines(salida, ruta_archivo)
+
+# Guardar como archivo .RDS:
+# saveRDS(Usaquen_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.4 Usaquen_Por_Dias.rds")
 
 #-------------------------------------------------------------------------------
 
@@ -253,8 +287,17 @@ Ferias_Por_Dias <- Ferias_Por_Dias %>%
 
 summary(Ferias_Por_Dias)
 
+# Guardar la salida del resumen estadístico en una variable
+salida <- capture.output(summary(Ferias_Por_Dias))
+
+# Construir la ruta completa del archivo de Word
+ruta_archivo <- "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/5. Salidas de R/5. Ferias_Por_Dias.doc"
+
+# Escribir la salida en el archivo de Word
+writeLines(salida, ruta_archivo)
+
 # Guardar como archivo .RDS:
-saveRDS(Ferias_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.5 Ferias_Por_Dias.rds")
+#saveRDS(Ferias_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.5 Ferias_Por_Dias.rds")
 
 #-------------------------------------------------------------------------------
 
@@ -303,8 +346,17 @@ SanCristobal_Por_Dias <- SanCristobal_Por_Dias %>%
 
 summary(SanCristobal_Por_Dias)
 
+# Guardar la salida del resumen estadístico en una variable
+salida <- capture.output(summary(SanCristobal_Por_Dias))
+
+# Construir la ruta completa del archivo de Word
+ruta_archivo <- "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/5. Salidas de R/6. SanCristobal_Por_Dias.doc"
+
+# Escribir la salida en el archivo de Word
+writeLines(salida, ruta_archivo)
+
 # Guardar como archivo .RDS:
-saveRDS(SanCristobal_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.6 SanCristobal_Por_Dias.rds")
+# saveRDS(SanCristobal_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.6 SanCristobal_Por_Dias.rds")
 
 #-------------------------------------------------------------------------------
 
@@ -357,8 +409,17 @@ Tunal_Por_Dias <- Tunal_Por_Dias %>%
 
 summary(Tunal_Por_Dias)
 
+# Guardar la salida del resumen estadístico en una variable
+salida <- capture.output(summary(Tunal_Por_Dias))
+
+# Construir la ruta completa del archivo de Word
+ruta_archivo <- "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/5. Salidas de R/7. Tunal_Por_Dias.doc"
+
+# Escribir la salida en el archivo de Word
+writeLines(salida, ruta_archivo)
+
 # Guardar como archivo .RDS:
-saveRDS(Tunal_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.7 Tunal_Por_Dias.rds")
+# saveRDS(Tunal_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.7 Tunal_Por_Dias.rds")
 
 #-------------------------------------------------------------------------------
 
@@ -397,10 +458,17 @@ Bolivia_Por_Dias <- Bolivia_Por_Dias %>%
 
 summary(Bolivia_Por_Dias)
 
-str(Bolivia_Por_Dias)
+# Guardar la salida del resumen estadístico en una variable
+salida <- capture.output(summary(Bolivia_Por_Dias))
+
+# Construir la ruta completa del archivo de Word
+ruta_archivo <- "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/5. Salidas de R/8. Bolivia_Por_Dias.doc"
+
+# Escribir la salida en el archivo de Word
+writeLines(salida, ruta_archivo)
 
 # Guardar como archivo .RDS:
-saveRDS(Bolivia_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.8 Bolivia_Por_Dias.rds")
+# saveRDS(Bolivia_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.8 Bolivia_Por_Dias.rds")
 
 #-------------------------------------------------------------------------------
 
@@ -444,8 +512,17 @@ Carvajal_Por_Dias <- Carvajal_Por_Dias %>%
 
 summary(Carvajal_Por_Dias)
 
+# Guardar la salida del resumen estadístico en una variable
+salida <- capture.output(summary(Carvajal_Por_Dias))
+
+# Construir la ruta completa del archivo de Word
+ruta_archivo <- "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/5. Salidas de R/9. Carvajal_Por_Dias.doc"
+
+# Escribir la salida en el archivo de Word
+writeLines(salida, ruta_archivo)
+
 # Guardar como archivo .RDS:
-saveRDS(Carvajal_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.9 Carvajal_Por_Dias.rds")
+# saveRDS(Carvajal_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.9 Carvajal_Por_Dias.rds")
 
 #-------------------------------------------------------------------------------
 
@@ -494,6 +571,15 @@ Fontibon_Por_Dias <- Fontibon_Por_Dias %>%
   select(-ends_with("_avg"))  # Elimina las columnas de promedios temporales
 
 summary(Fontibon_Por_Dias)
+
+# Guardar la salida del resumen estadístico en una variable
+salida <- capture.output(summary(Fontibon_Por_Dias))
+
+# Construir la ruta completa del archivo de Word
+ruta_archivo <- "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/5. Salidas de R/10. Fontibon_Por_Dias.doc"
+
+# Escribir la salida en el archivo de Word
+writeLines(salida, ruta_archivo)
 
 # Guardar como archivo .RDS:
 saveRDS(Fontibon_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.10 Fontibon_Por_Dias.rds")
@@ -548,8 +634,17 @@ Kennedy_Por_Dias <- Kennedy_Por_Dias %>%
 
 summary(Kennedy_Por_Dias)
 
+# Guardar la salida del resumen estadístico en una variable
+salida <- capture.output(summary(Kennedy_Por_Dias))
+
+# Construir la ruta completa del archivo de Word
+ruta_archivo <- "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/5. Salidas de R/11. Kennedy_Por_Dias.doc"
+
+# Escribir la salida en el archivo de Word
+writeLines(salida, ruta_archivo)
+
 # Guardar como archivo .RDS:
-saveRDS(Kennedy_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.11 Kennedy_Por_Dias.rds")
+# saveRDS(Kennedy_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.11 Kennedy_Por_Dias.rds")
 
 #-------------------------------------------------------------------------------
 
@@ -601,8 +696,17 @@ PuenteAranda_Por_Dias <- PuenteAranda_Por_Dias %>%
 
 summary(PuenteAranda_Por_Dias)
 
+# Guardar la salida del resumen estadístico en una variable
+salida <- capture.output(summary(PuenteAranda_Por_Dias))
+
+# Construir la ruta completa del archivo de Word
+ruta_archivo <- "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/5. Salidas de R/12. PuenteAranda_Por_Dias.doc"
+
+# Escribir la salida en el archivo de Word
+writeLines(salida, ruta_archivo)
+
 # Guardar como archivo .RDS:
-saveRDS(PuenteAranda_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.12 PuenteAranda_Por_Dias.rds")
+# saveRDS(PuenteAranda_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.12 PuenteAranda_Por_Dias.rds")
 
 #-------------------------------------------------------------------------------
 
@@ -654,8 +758,17 @@ Centro_Por_Dias <- Centro_Por_Dias %>%
 
 summary(Centro_Por_Dias)
 
+# Guardar la salida del resumen estadístico en una variable
+salida <- capture.output(summary(Centro_Por_Dias))
+
+# Construir la ruta completa del archivo de Word
+ruta_archivo <- "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/5. Salidas de R/13. Centro_Por_Dias.doc"
+
+# Escribir la salida en el archivo de Word
+writeLines(salida, ruta_archivo)
+
 # Guardar como archivo .RDS:
-saveRDS(Centro_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.13Centro_Por_Dias.rds")
+# saveRDS(Centro_Por_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/3.13Centro_Por_Dias.rds")
 
 # -----------------------------------------------------------
 # Sección 1: Descarga de las medias de los contaminates 

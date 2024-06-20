@@ -1,0 +1,24 @@
+     myday                          day            month             year           dow              o3               no2              pm25        
+ Min.   :2021-01-01 00:00:00   Min.   : 1.00   Min.   : 1.000   Min.   :2021   Min.   :1.000   Min.   : 0.7708   Min.   : 1.450   Min.   : 0.3792  
+ 1st Qu.:2021-11-08 12:00:00   1st Qu.: 8.00   1st Qu.: 3.000   1st Qu.:2021   1st Qu.:2.000   1st Qu.:13.3625   1st Qu.: 5.290   1st Qu.: 5.7530  
+ Median :2022-09-16 00:00:00   Median :16.00   Median : 6.000   Median :2022   Median :4.000   Median :16.8167   Median : 8.793   Median :10.1658  
+ Mean   :2022-09-16 00:00:00   Mean   :15.72   Mean   : 6.097   Mean   :2022   Mean   :4.001   Mean   :17.9344   Mean   :10.375   Mean   :11.6642  
+ 3rd Qu.:2023-07-24 12:00:00   3rd Qu.:23.00   3rd Qu.: 9.000   3rd Qu.:2023   3rd Qu.:6.000   3rd Qu.:21.8875   3rd Qu.:14.820   3rd Qu.:16.3229  
+ Max.   :2024-05-31 00:00:00   Max.   :31.00   Max.   :12.000   Max.   :2024   Max.   :7.000   Max.   :58.2923   Max.   :31.846   Max.   :43.6667  
+                                                                                               NA's   :68        NA's   :37       NA's   :181      
+       co               so2              pm10           bc               tmp            rh               rain          radsolar         co2         
+ Min.   : 0.1000   Min.   :0.0750   Min.   : 3.346   Mode:logical   Min.   : 11.53   Mode:logical   Min.   : 0.00000   Mode:logical   Mode:logical  
+ 1st Qu.: 0.3010   1st Qu.:0.4699   1st Qu.:13.196   NA's:1247      1st Qu.: 13.79   NA's:1247      1st Qu.: 0.00000   NA's:1247      NA's:1247     
+ Median : 0.4152   Median :0.7250   Median :20.075                  Median : 14.39                  Median : 0.00417                                
+ Mean   : 0.4655   Mean   :0.7828   Mean   :22.097                  Mean   : 14.52                  Mean   : 0.13708                                
+ 3rd Qu.: 0.5750   3rd Qu.:1.0042   3rd Qu.:29.277                  3rd Qu.: 14.96                  3rd Qu.: 0.08333                                
+ Max.   :15.7917   Max.   :3.8458   Max.   :62.809                  Max.   :205.33                  Max.   :15.67083                                
+ NA's   :1         NA's   :337      NA's   :158                                                     NA's   :133                                     
+ pressure             ws        
+ Mode:logical   Min.   :0.3958  
+ NA's:1247      1st Qu.:0.9125  
+                Median :1.2375  
+                Mean   :1.2907  
+                3rd Qu.:1.5750  
+                Max.   :7.3417  
+                                

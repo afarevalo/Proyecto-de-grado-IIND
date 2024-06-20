@@ -1,0 +1,24 @@
+     myday                          day            month             year           dow              o3                no2        
+ Min.   :2021-01-01 00:00:00   Min.   : 1.00   Min.   : 1.000   Min.   :2021   Min.   :1.000   Min.   : 0.03333   Min.   : 5.367  
+ 1st Qu.:2021-11-08 12:00:00   1st Qu.: 8.00   1st Qu.: 3.000   1st Qu.:2021   1st Qu.:2.000   1st Qu.: 4.05312   1st Qu.:15.791  
+ Median :2022-09-16 00:00:00   Median :16.00   Median : 6.000   Median :2022   Median :4.000   Median : 5.96473   Median :18.610  
+ Mean   :2022-09-16 00:00:00   Mean   :15.72   Mean   : 6.097   Mean   :2022   Mean   :4.001   Mean   : 6.37736   Mean   :18.579  
+ 3rd Qu.:2023-07-24 12:00:00   3rd Qu.:23.00   3rd Qu.: 9.000   3rd Qu.:2023   3rd Qu.:6.000   3rd Qu.: 8.32411   3rd Qu.:21.320  
+ Max.   :2024-05-31 00:00:00   Max.   :31.00   Max.   :12.000   Max.   :2024   Max.   :7.000   Max.   :17.15000   Max.   :30.350  
+                                                                                               NA's   :311        NA's   :623     
+      pm25              co              so2               pm10           bc            tmp             rh            rain         radsolar      
+ Min.   : 2.454   Min.   :0.1333   Min.   : 0.1050   Min.   : 7.118   Mode:logical   Mode:logical   Mode:logical   Mode:logical   Mode:logical  
+ 1st Qu.:10.500   1st Qu.:0.3292   1st Qu.: 0.8135   1st Qu.:23.420   NA's:1247      NA's:1247      NA's:1247      NA's:1247      NA's:1247     
+ Median :15.150   Median :0.4128   Median : 1.2066   Median :33.238                                                                             
+ Mean   :15.467   Mean   :0.4330   Mean   : 1.9332   Mean   :34.830                                                                             
+ 3rd Qu.:19.414   3rd Qu.:0.5208   3rd Qu.: 2.1623   3rd Qu.:44.192                                                                             
+ Max.   :42.767   Max.   :1.6250   Max.   :44.8792   Max.   :90.392                                                                             
+ NA's   :150      NA's   :63       NA's   :101       NA's   :78                                                                                 
+   co2          pressure          ws         
+ Mode:logical   Mode:logical   Mode:logical  
+ NA's:1247      NA's:1247      NA's:1247     
+                                             
+                                             
+                                             
+                                             
+                                             

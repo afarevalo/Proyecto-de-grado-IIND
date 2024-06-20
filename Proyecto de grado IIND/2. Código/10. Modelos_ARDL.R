@@ -55,9 +55,7 @@ list.files()
 
 ## Importacion de los datos ------------------
 install_formats() # Cuestiones de importacion de archivos del paquete rio
-da <- import("6. Bogota_Promedio_Dias_Act_VAR_1.xlsx")
-
-da_log <- da%>%mutate(across(everything()))
+da <- import("7. Bogota_Promedio_Dias_Act_VECM.xlsx")
 
 # Convertir la base de datos "da" a formato ts
 da.ts <- ts(da[2:6], start = as.Date(2021), frequency = 365)
@@ -105,7 +103,6 @@ p_pm25 <- autoplot(predict(mod1$fitted.values, h=10)) +
     panel.grid.minor = element_blank()  # Elimina las líneas de cuadrícula menores
   )
 p_pm25
-p_pm25 + geom_hline(yintercept = 15, color = "red")
 
 # Exportar como PNG
 ggsave("24. Predicción del PM2.5 desde 2021 hasta 2024.png", 
@@ -128,8 +125,6 @@ bounds_f_test(modelo, case = 2)
 # H0:NO Existe un equilibrio a corto plazo
 # H1: Existe un equilibrio a corto plazo
 # p-value = 1e-06 < 5%, se rechaza H0, Existe un equilibrio a corto plazo.
-
-?bounds_f_test
 
 # Multiplicadores a corto plazo
 # sr_ short run
@@ -158,6 +153,12 @@ multipliers(modelo, type = "lr")
 
 a <- resid(modelo)
 pacf(a, 30)
+
+library(tsDyn)
+library(vars)
+library(urca)
+library(forecast)
+library(tidyverse)
 
 checkresiduals(modelo)
 

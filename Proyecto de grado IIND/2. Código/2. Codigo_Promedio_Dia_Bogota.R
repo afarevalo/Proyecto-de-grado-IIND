@@ -56,7 +56,7 @@ all_data$day <- all_data$myday
 
 # Importar base vacia
 Bogota_Promedio_Dias <- read_excel("2. Datos (2021 -2024) - Diarios.xlsx")
-view(Bogota_Promedio_Dias)
+#view(Bogota_Promedio_Dias)
 
 # Calcula los promedios diarios de cada contaminante y otras variables
 promedios_diarios <- all_data %>%
@@ -90,9 +90,21 @@ Bogota_Promedio_Dias <- Bogota_Promedio_Dias %>%
 # Verificar los cambios
 names(Bogota_Promedio_Dias)
 
+summary(Bogota_Promedio_Dias)
+
+# Guardar la salida del resumen estadístico en una variable
+salida <- capture.output(summary(Bogota_Promedio_Dias))
+
+# Construir la ruta completa del archivo de Word
+ruta_archivo <- "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/5. Salidas de R/14. Bogota_Promedio_Dias.doc"
+
+# Escribir la salida en el archivo de Word
+writeLines(salida, ruta_archivo)
+
 # Guardar como archivo .RDS:
-saveRDS(Bogota_Promedio_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/4. Bogota_Promedio_Dias.rds")
+#saveRDS(Bogota_Promedio_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/4. Bogota_Promedio_Dias.rds")
 view(Bogota_Promedio_Dias)
 
+
 # Exprtar data
-write_xlsx(Bogota_Promedio_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/4. Bogota_Promedio_Dias.xlsx")
+#write_xlsx(Bogota_Promedio_Dias, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/4. Bogota_Promedio_Dias.xlsx")
