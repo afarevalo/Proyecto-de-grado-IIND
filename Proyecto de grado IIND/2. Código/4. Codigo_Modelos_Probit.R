@@ -56,33 +56,6 @@ probit_model <- glm(formula = ex_pm ~ rain + tmp + ws + rh + radsolar + as.facto
 # Chequeo de los resultados
 stargazer(probit_model, type = "text", out = "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/5. Salidas de R/probit_model.doc")
 
-# Pseudo R^2
-pR2(probit_model)
-
-# Valor de la función de log-verosimilitud
-logLik(probit_model)
-
-# Desvianza residual
-deviance(probit_model)
-
-# Modelo nulo
-probit_model0 <- glm(formula = ex_pm ~ 1, data = data, family = binomial(link = "probit"))
-
-# Valor de la función de log-verosimilitud
-loglik_model <- logLik(probit_model)
-
-# Estadístico de razón de verosimilitud
-lrtest <- 2 * (logLik(probit_model) - logLik(probit_model0))
-lrtest
-
-# Pseudo R^2 de McFadden
-pR2(probit_model, method = "mcfadden")
-
-# AIC
-AIC(probit_model)
-
-# BIC
-BIC(probit_model)
 
 # Valores predichos en la base de datos
 data <- data %>% mutate(ex_pm_hat = probit_model$fitted.values)
@@ -93,7 +66,7 @@ p_pm25_prob <- ggplot(data, aes(myday, ex_pm_hat)) +
   geom_line() +
   labs(x = "Tiempo", 
        y = "Probabilidad",
-       title = "Evoluación de la probabilidad") +
+       title = "Evoluación de la probabilidad - PM2.5") +
   theme_minimal() +
   theme(
     plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),  # Centra y ajusta el título
