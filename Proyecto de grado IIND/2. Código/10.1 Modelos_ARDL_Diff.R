@@ -58,7 +58,7 @@ install_formats() # Cuestiones de importacion de archivos del paquete rio
 da <- import("7. Bogota_Promedio_Dias_Act_VECM.xlsx")
 
 # Convertir la base de datos "da" a formato ts
-da.ts <- ts(da[2:6], start = as.Date(2021), frequency = 365)
+da.ts <- ts(da[2:5], start = as.Date(2021), frequency = 365)
 plot(da.ts)
 
 # ARDL (Autoregressive Distributed Lag)
@@ -66,11 +66,10 @@ plot(da.ts)
 # Aplica para i1 e i0.
 
 pm25=diff(da.ts[,1],1)
-tmp=diff((da.ts[,2]),1)
-radsolar=diff(da.ts[,3],1)
-pressure=diff(da.ts[,4],1)
-ws=diff(da.ts[,5],1)
-z=cbind.data.frame(pm25,tmp,radsolar,pressure,ws)
+radsolar=diff(da.ts[,2],1)
+ws=diff(da.ts[,3],1)
+rh=diff(da.ts[,4],1)
+z=cbind.data.frame(pm25,radsolar,ws,rh)
 head(z)
 str(z)
 
@@ -79,7 +78,7 @@ str(z)
 # -----------------------------------------------------------
 
 #Selección automatica:
-models <- auto_ardl(pm25 ~ pressure + tmp + radsolar + ws, data = z, lamda = TRUE,max_order = 6)
+models <- auto_ardl(pm25 ~ radsolar + ws +rh, data = z, lamda = TRUE,max_order = 6)
 
 #Revisemos el top 20 de los mejores modelos según su critrio de información de Akaike
 models$top_orders
@@ -89,7 +88,7 @@ models$top_orders
 # -----------------------------------------------------------
 
 #Procedemos a construir el modelo de regresión con la mejor combinación.
-mod1 <- ardl(pm25 ~ pressure + tmp + radsolar+ ws, data = z, lamda = TRUE ,order = c(6,6,6,6,6))
+mod1 <- ardl(pm25 ~ rh + radsolar + ws, data = z, lamda = TRUE ,order = c(6,6,6,6))
 summary(mod1)
 
 # Para la interpretación, podemos imprimir los rezagos correspondientes de cada variable que explican la respuesta.
@@ -140,16 +139,16 @@ bounds_f_test(modelo, case = 2)
 multipliers(modelo, type = "sr")
 
 # Interpretación de los coeficientes:
-# - Por cada unidad de mmhg pressure, el PM2.5 disminuye en -1.29708135 µg/m3, en corto plazo.
-# - Por cada unidad de C tmp, el PM2.5 disminuye en -0.25715563 µg/m3, en corto plazo.
-# - Por cada unidad de W/M^2 radsolar, el PM2.5 disminuye en 0.03144708 µg/m3, en corto plazo.
-# - Por cada unidad de M/S ws, el PM2.5 disminuye en -10.85602704 µg/m3, en corto plazo.
+# - Por cada unidad de mmhg pressure, el PM2.5 disminuye en -0.1544445652 µg/m3, en corto plazo.
+# - Por cada unidad de C tmp, el PM2.5 disminuye en -0.8314739740 µg/m3, en corto plazo.
+# - Por cada unidad de W/M^2 radsolar, el PM2.5 disminuye en 0.0048481106 µg/m3, en corto plazo.
+# - Por cada unidad de M/S ws, el PM2.5 disminuye en -1.6913903054 µg/m3, en corto plazo.
 
 # Como el modelo presenta cointegración, aplica:
 bounds_f_test(modelo, case = 3)
-# H0:Existe un equilibrio a largo plazo
-# H1:NO Existe un equilibrio a largo plazo
-# p-value = 1e-06 < 5%, se rechaza H0, NO Existe un equilibrio a largo plazo.
+# H0:NO Existe un equilibrio a largo plazo
+# H1:Existe un equilibrio a largo plazo
+# p-value = 1e-06 < 5%, se rechaza H0, Existe un equilibrio a largo plazo.
 
 # Multiplicadores a largo plazo
 multipliers(modelo, type = "lr")
@@ -178,3 +177,6 @@ checkresiduals(modelo)
 # Esto Puede subestimar o sobreestimar los coeficientes, el modelo no es tan bueno???
 
 # G3: Normalidad en la distribución de los residuos.
+
+vif(modelo)
+# Dado que todos son menores a 10 no hay problemas graves de multicolinealidad en el modelo.

@@ -23,7 +23,6 @@ library(officer)
 library(flextable)
 library(pscl)
 library(corrplot)   # Para el gráfico de correlación
-
 library(devtools)
 library(fpp3)
 library(urca)
@@ -42,10 +41,10 @@ list.files()
 
 ## Importacion de los datos ------------------
 install_formats() # Cuestiones de importacion de archivos del paquete rio
-da <- import("7. Bogota_Promedio_Dias_Act_VECM.xlsx")
+da <- import("6. Bogota_Promedio_Dias_Act_VAR_1.xlsx")
 
 # Convertir la base de datos "da" a formato ts
-da.ts <- ts(da[2:6], start = as.Date("2021-1-01"), frequency = 1)
+da.ts <- ts(da[2:6], start = as.Date(2021), frequency = 365)
 plot(da.ts)
 str(da.ts)
 
@@ -62,26 +61,22 @@ nivelka$selection
 
 # Aplicamos la prueba de Johansen para la identificación de relaciones lineales
 # entre las series, lo que nos indica la condición de cointegración.
-johatest=ca.jo(da.ts, type = "trace", K=2, ecdet ="none", spec = "longrun")
+johatest=ca.jo(da.ts, type = "trace", K=7, ecdet ="none", spec = "longrun")
 summary(johatest)
 
-# r = 0  | 881.27 66.49 70.60 78.87
-# Como 881.27 > ... , el rango de la martiz es 0 entonces si estan cointegradas,
+# r = 0  | 308.12 66.49 70.60 78.87
+# Como 308.12 > ... , el rango de la martiz es 0 entonces si estan cointegradas,
 # Si hay un equilibrio a largo plazo.
-
-# Ya no se puede implementar el modelo
 
 # -----------------------------------------------------------
 # Sección 3: Diferenciación de las series
 # -----------------------------------------------------------
-
+  
 adf.test(da[,2])
 adf.test(da[,3])
 adf.test(da[,4])
 adf.test(da[,5])
 adf.test(da[,6])
-adf.test(da[,7])
-adf.test(da[,8])
 
 # Esto significa que hay suficiente evidencia estadística para decir que la serie es estacionaria.
 
@@ -153,7 +148,7 @@ MTSdiag(m2, adj=12) #Recordar que el modelo se reduce a 12 parámetros.
 m1irf = irf(m0, n.ahead = 12, boot = TRUE)
 plot(m1irf) 
 # Se estabiliza a la media
-
+  
 # -----------------------------------------------------------
 # Sección 7: Predicción
 # -----------------------------------------------------------
