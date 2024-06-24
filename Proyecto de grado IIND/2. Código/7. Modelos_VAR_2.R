@@ -45,28 +45,38 @@ install_formats() # Cuestiones de importacion de archivos del paquete rio
 da <- import("7. Bogota_Promedio_Dias_Act_VECM.xlsx")
 
 # Convertir la base de datos "da" a formato ts
-da.ts <- ts(da[2:6], start = as.Date("2021-1-01"), frequency = 1)
+da.ts <- ts(da[2:6], start = as.Date(2021), frequency = 365)
 plot(da.ts)
-str(da.ts)
+
+# ARDL (Autoregressive Distributed Lag)
+# ARML Se puede aplicar, pues todas las series son estacionarias.
+# Aplica para i1 e i0.
+
+pm25=diff(da.ts[,1],1)
+radsolar=diff(da.ts[,2],1)
+ws=diff(da.ts[,3],1)
+pressure=diff(da.ts[,4],1)
+tmp=diff(da.ts[,5],1)
+z=cbind.data.frame(pm25,radsolar,ws,pressure,tmp)
 
 # -----------------------------------------------------------
 # Sección 2: Identificación nivel regresivo y prueba de cointegración
 # -----------------------------------------------------------
 
 # Evaluará modelos VAR con hasta 7 retardos.
-nivelka=VARselect(da.ts, lag.max = 7, type = "const")
+nivelka=VARselect(z, lag.max = 7, type = "const")
 nivelka$selection
 
 # AIC(n)  HQ(n)  SC(n) FPE(n) 
-#   7      4      3      7 
+#   6      5      3      6 
 
 # Aplicamos la prueba de Johansen para la identificación de relaciones lineales
 # entre las series, lo que nos indica la condición de cointegración.
-johatest=ca.jo(da.ts, type = "trace", K=2, ecdet ="none", spec = "longrun")
+johatest=ca.jo(z, type = "trace", K=2, ecdet ="none", spec = "longrun")
 summary(johatest)
 
-# r = 0  | 881.27 66.49 70.60 78.87
-# Como 881.27 > ... , el rango de la martiz es 0 entonces si estan cointegradas,
+# r = 0  | 4392.36 66.49 70.60 78.87
+# Como 4392.36 > ... , el rango de la martiz es 0 entonces si estan cointegradas,
 # Si hay un equilibrio a largo plazo.
 
 # Ya no se puede implementar el modelo
@@ -92,16 +102,14 @@ adf.test(da[,8])
 # A. Selección orden regresivo
 
 # En la librería de VAR, la función que permite identificar el orden regresivo es la función de VARselect(). Se elige el máximo de rezagos de lag.max=7.
-nivelk=VARselect(da.ts, lag.max = 7, type = "const")
+nivelk=VARselect(z, lag.max = 7, type = "const")
 nivelk$selection
 
 # B: Regresión VAR.
 #Podemos volver a llamar la librería de vars y aplicar el regresión habiendo encontrado que p=2.
 library(vars)
-m0=vars::VAR(da.ts, p=2)
+m0=vars::VAR(z, p=5)
 summary(m0)
-
-# El PM25 depende de si mismo, radsolar, o3 y ws, marginalmente no depende.  
 
 # -----------------------------------------------------------
 # Sección 5: Modelación con libreria MTS
@@ -110,13 +118,14 @@ summary(m0)
 # A. Selección del orden regresivo
 
 # En la librería de MTS, la función que permite la identificación del nivel regresivo es la de VARorder().
-VARorder(da.ts)
+VARorder(z)
 # Un nivel regresivo de 5, pues es donde cambia el Pvalue ***
 
 # B. Regresión VAR
 
 #Ahora, aplicamos la función de VAR, para generar el modelo de regresión:
-m1=MTS::VAR(da.ts,5)
+m1=MTS::VAR(z,5)
+
 
 #Separemos primero los residuales del modelo de regresión y apliquemos la función de mq() para la revisión de la calidad del modelo.
 #Indicamos los grados de libertad del modelo, que son 18 (2 matrices autorregresivas de 9 coeficientes, cada uno, mas 3 ordenadas).
@@ -139,7 +148,6 @@ resi2=m2$residuals
 mq(resi2, adj=12)
 # Se daña el modelo????
 
-
 #Podemos visualizar nuevamente los residuales, donde vemos nuevamente la mejoría respecto al modelo completo.
 acf(resi2)
 
@@ -161,7 +169,7 @@ plot(m1irf)
 #Apliquemos la predicción al segundo modelo. Esto, ya que la función VARpredict pertenece a la librería de MTS.
 #Igualmente, podemos observar que se generan los resultados de pronóstico de cada una de las series y las ecuaciones de estimación de las series.
 predm2=VARpred(m2, 6)  #Podemos generar un pronóstico a 6 trimestres adelante.
-var_est3 <- VAR(y=z, lag.max = 2)
+var_est3 <- VAR(y=z, lag.max = 20)
 summary(var_est3)
 
 # -----------------------------------------------------------

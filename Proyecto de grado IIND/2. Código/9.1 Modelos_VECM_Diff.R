@@ -55,18 +55,27 @@ da <- import("7. Bogota_Promedio_Dias_Act_VECM.xlsx")
 da.ts <- ts(da[2:6], start = as.Date(2021), frequency = 365)
 plot(da.ts)
 
+pm25=diff(da.ts[,1],1)
+radsolar=diff(da.ts[,2],1)
+ws=diff(da.ts[,3],1)
+pressure=diff(da.ts[,4],1)
+tmp=diff(da.ts[,5],1)
+z=cbind.data.frame(pm25,radsolar,ws,pressure,tmp)
+head(z)
+str(z)
+
 # -----------------------------------------------------------
 # Sección 2: Prueba de cointegración
 # -----------------------------------------------------------
 
 # Evaluará modelos VAR con hasta 7 retardos.
-nivelka=VARselect(da.ts, lag.max = 7, type = "const")
+nivelka=VARselect(z, lag.max = 7, type = "const")
 nivelka$selection
 
 # AIC(n)  HQ(n)  SC(n) FPE(n) 
-#   7      4      3      7
+#   6      5      3      6 
 
-niv1=VARorder(da.ts)
+niv1=VARorder(z)
 
 # [9,]  8 4.0412 4.8637 4.3504   26.2241  0.3957
 # Al nivel 8 aumenta el pvalue mas del 5%
@@ -76,10 +85,10 @@ niv1=VARorder(da.ts)
 
 # Aplicamos la prueba de Johansen para la identificación de relaciones lineales
 # entre las series, lo que nos indica la condición de cointegración.
-johatest=ca.jo(da.ts, type = "trace", K=7, ecdet ="none", spec = "longrun")
+johatest=ca.jo(da.ts, type = "trace", K=3, ecdet ="none", spec = "longrun")
 summary(johatest)
 
-# r = 0  | 300.40 66.49 70.60 78.87
+# r = 0  | 603.31 66.49 70.60 78.87
 # Como 300.40 > ... , el rango de la martiz es 0 entonces si estan cointegradas,
 # Si hay un equilibrio a largo plazo.
 # Hay cointregracion de rango completo.
@@ -107,22 +116,16 @@ vecm1 = VECM(z, lag=7, r=4, estim = ("ML"))
 summary(vecm1)
 
 # Relacion A largo plazo 
-# Error correction term 1
 # El pm2.5 consigo mismo tiene un equilibrio en sus resagos.
-# El pm2.5 con la tmp tiene un equilibrio en sus resagos.
-# El pm2.5 con la radsolar NO tiene un equilibrio en sus resagos.
-# El pm2.5 con la ws tiene un equilibrio en sus resagos.
-
-# Error correction term 2
-# El pm2.5 tiene una relación consigo mismo marginalmente.
-# El pm2.5 tiene una relación con la tmp marginalmente.
-# El pm2.5 tiene una relación con la radsolar marginalmente.
-# El pm2.5 tiene una relación con la ws marginalmente.
+# El pm2.5 con la tmp tiene un equilibrio a largo plazo en sus resagos.
+# El pm2.5 con la radsolar tiene un equilibrio a largo plazo en sus resagos.
+# El pm2.5 con la ws tiene un equilibrio a largo plazo en sus resagos.
+# El pm2.5 con la pressure tiene un equilibrio a largo plazo en sus resagos.
 
 # Intercepto
 # Ninguna de las variables participan en el equilibrio de largo plazo.
 
-# El pm2.5 en su 1er rezago tiene correlación consigo mismo, con 1er rezago tmp y con 1er rezago pressure. 
+# El pm2.5 en su 1er rezago tiene correlación consigo mismo, con 1er rezago radsolar y con 1er rezago ws. 
 # ...
 
 # -----------------------------------------------------------
@@ -178,3 +181,5 @@ plot(m1irf)
 ## Prediction:
 pred=predict(varmod1, n.ahead = 30, ci = 0.95)
 plot(pred)
+
+

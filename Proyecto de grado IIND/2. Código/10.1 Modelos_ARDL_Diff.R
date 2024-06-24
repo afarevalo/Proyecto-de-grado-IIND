@@ -58,7 +58,7 @@ install_formats() # Cuestiones de importacion de archivos del paquete rio
 da <- import("7. Bogota_Promedio_Dias_Act_VECM.xlsx")
 
 # Convertir la base de datos "da" a formato ts
-da.ts <- ts(da[2:5], start = as.Date(2021), frequency = 365)
+da.ts <- ts(da[2:6], start = as.Date(2021), frequency = 365)
 plot(da.ts)
 
 # ARDL (Autoregressive Distributed Lag)
@@ -68,8 +68,9 @@ plot(da.ts)
 pm25=diff(da.ts[,1],1)
 radsolar=diff(da.ts[,2],1)
 ws=diff(da.ts[,3],1)
-rh=diff(da.ts[,4],1)
-z=cbind.data.frame(pm25,radsolar,ws,rh)
+pressure=diff(da.ts[,4],1)
+tmp=diff(da.ts[,5],1)
+z=cbind.data.frame(pm25,radsolar,ws,pressure,tmp)
 head(z)
 str(z)
 
@@ -78,7 +79,7 @@ str(z)
 # -----------------------------------------------------------
 
 #Selección automatica:
-models <- auto_ardl(pm25 ~ radsolar + ws +rh, data = z, lamda = TRUE,max_order = 6)
+models <- auto_ardl(pm25 ~ radsolar + ws + pressure + tmp, da = z, lamda = TRUE,max_order = 6)
 
 #Revisemos el top 20 de los mejores modelos según su critrio de información de Akaike
 models$top_orders
@@ -88,7 +89,7 @@ models$top_orders
 # -----------------------------------------------------------
 
 #Procedemos a construir el modelo de regresión con la mejor combinación.
-mod1 <- ardl(pm25 ~ rh + radsolar + ws, data = z, lamda = TRUE ,order = c(6,6,6,6))
+mod1 <- ardl(pm25 ~ radsolar + ws + pressure + tmp, data = z, lamda = TRUE ,order = c(6,6,6,6,6))
 summary(mod1)
 
 # Para la interpretación, podemos imprimir los rezagos correspondientes de cada variable que explican la respuesta.
@@ -139,9 +140,9 @@ bounds_f_test(modelo, case = 2)
 multipliers(modelo, type = "sr")
 
 # Interpretación de los coeficientes:
-# - Por cada unidad de mmhg pressure, el PM2.5 disminuye en -0.1544445652 µg/m3, en corto plazo.
-# - Por cada unidad de C tmp, el PM2.5 disminuye en -0.8314739740 µg/m3, en corto plazo.
-# - Por cada unidad de W/M^2 radsolar, el PM2.5 disminuye en 0.0048481106 µg/m3, en corto plazo.
+# - Por cada unidad de mmhg pressure, el PM2.5 disminuye en 0.1544445652 µg/m3, en corto plazo.
+# - Por cada unidad de C tmp, el PM2.5 disminuye en 0.8314739740  µg/m3, en corto plazo.
+# - Por cada unidad de W/M^2 radsolar, el PM2.5 aumenta en 0.0048481106 µg/m3, en corto plazo.
 # - Por cada unidad de M/S ws, el PM2.5 disminuye en -1.6913903054 µg/m3, en corto plazo.
 
 # Como el modelo presenta cointegración, aplica:
@@ -152,15 +153,15 @@ bounds_f_test(modelo, case = 3)
 
 # Multiplicadores a largo plazo
 multipliers(modelo, type = "lr")
-# - Por cada unidad de mmhg de pressure, el PM2.5 disminuye en -4.0469894 µg/m3, en corto plazo.
-# - Por cada unidad de C de tmp, el PM2.5 disminuye en 0.6307268 µg/m3, en corto plazo.
-# - Por cada unidad de W/M^2 de radsolar, el PM2.5 disminuye en 0.0892383 µg/m3, en corto plazo.
-# - Por cada unidad de M/S de ws, el PM2.5 disminuye en -3.4238851 µg/m3, en corto plazo.
+# - Por cada unidad de mmhg de pressure, el PM2.5 disminuye en 0.0360737761  µg/m3, en largo plazo.
+# - Por cada unidad de C de tmp, el PM2.5 disminuye en 1.9135865542 µg/m3, en largo plazo.
+# - Por cada unidad de W/M^2 de radsolar, el PM2.5 aumenta en 0.0108755033 µg/m3, en largo plazo.
+# - Por cada unidad de M/S de ws, el PM2.5 disminuye en -2.0467589077 µg/m3, en largo plazo.
 
 ### Cuanto es el largo plazo???
 
 a <- resid(modelo)
-pacf(a, 30)
+pacf(a, 15)
 
 library(tsDyn)
 library(vars)

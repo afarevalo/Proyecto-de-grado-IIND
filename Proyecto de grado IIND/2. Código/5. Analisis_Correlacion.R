@@ -116,8 +116,24 @@ corrplot(correlation_matrix_spearman, method = "color", type = "upper", order = 
 title("Matriz de Correlación Variables VAR", col.main = "black", font.main = 4)
 dev.off() # Cerrar el dispositivo de gráficos
 
+# -----------------------------------------------------------
+# Sección 4: Analisis de correlacion entre variables Normalizadas, Sececionadas
+# -----------------------------------------------------------
 
+# Variables para el modelo VAR
+# Calculando la matriz de correlación de Spearman
+correlation_matrix_spearman <- cor(da[, c("pm25", "tmp", "radsolar", "pressure", "ws")], method = "spearman")
+print("Matriz de Correlación de Spearman:")
+print(correlation_matrix_spearman)
 
+# Generar el gráfico
+png("C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/4. Gráficos/30. Matriz_de_Correlacion_NORM_SELEC.png")
+corrplot(correlation_matrix_spearman, method = "color", type = "upper", order = "hclust",
+         addCoef.col = "black", # Añadir coeficientes de correlación a la gráfica
+         tl.col = "black", tl.srt = 45, # Ajustar el color y la rotación de las etiquetas
+         diag = FALSE) # No mostrar la diagonal principal
+title("Matriz de Correlación Variables VAR - VECM - ARDL - RF", col.main = "black", font.main = 4)
+dev.off() # Cerrar el dispositivo de gráficos
 
 
 
