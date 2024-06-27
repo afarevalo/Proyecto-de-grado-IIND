@@ -171,6 +171,12 @@ library(tidyverse)
 
 checkresiduals(modelo)
 
+ggsave("40. Residuales ARDL.png", 
+       plot = last_plot(),
+       path = "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/4. Gráficos", 
+       width = 10, height = 6, units = "in", dpi = 300)
+
+
 # G1: No hay una tendencia obvia en los residuos, lo cual es bueno porque 
 # indica que el modelo no tiene sesgo sistemático a lo largo del tiempo. 
 

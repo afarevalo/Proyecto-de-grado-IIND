@@ -85,11 +85,11 @@ niv1=VARorder(z)
 
 # Aplicamos la prueba de Johansen para la identificación de relaciones lineales
 # entre las series, lo que nos indica la condición de cointegración.
-johatest=ca.jo(da.ts, type = "trace", K=3, ecdet ="none", spec = "longrun")
+johatest=ca.jo(da.ts, type = "trace", K=6, ecdet ="none", spec = "longrun")
 summary(johatest)
 
-# r = 0  | 603.31 66.49 70.60 78.87
-# Como 300.40 > ... , el rango de la martiz es 0 entonces si estan cointegradas,
+# r = 0  | 332.70 66.49 70.60 78.87
+# Como 332.70 > ... , el rango de la martiz es 0 entonces si estan cointegradas,
 # Si hay un equilibrio a largo plazo.
 # Hay cointregracion de rango completo.
 

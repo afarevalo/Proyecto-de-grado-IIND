@@ -47,15 +47,26 @@ db <- import("9. Mapa_R_NO2.xlsx")
 # Sección 2: Mapa
 # -----------------------------------------------------------
 
+# Encontramos el queremos que sea el centro del mapa 
+latitud_central <- mean(db$lat)
+longitud_central <- mean(db$lng)
+
 # Observamos la primera visualización
-leaflet() %>%
+mymap <- leaflet() %>%
   addTiles() %>%
+  setView(lng = longitud_central, lat = latitud_central, zoom = 12) %>%
   addCircles(lng = db$lng, 
              lat = db$lat,
              weight = 2,           # Grosor del borde
              color = "#000000",    # Color del borde
-             fillColor = "#FF0000",# color del relleno
-             radius = 500)         # Tanaño de relleno
+             fillColor = "#0000CD",# color del relleno
+             radius = 500,
+             fillOpacity = 1,
+             opacity = 1)         # Tanaño de relleno
+mymap
+# Guardar el mapa como PNG
+#mapshot(mymap, file = "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/4. Gráficos/36.Mapa_Estaciones.png", quietly = TRUE)
+
 
 # Escalas de colores.
 db <- db %>%
@@ -74,10 +85,6 @@ db <- db %>%
                            puesto == "13" ~ "#00FF00"
                            ))
 
-# Encontramos el queremos que sea el centro del mapa 
-latitud_central <- mean(db$lat)
-longitud_central <- mean(db$lng)
-
 # Creamos el plot
 mymap <-leaflet() %>%
   addTiles() %>%
@@ -93,7 +100,7 @@ mymap <-leaflet() %>%
 mymap
 
 # Guardar el mapa como PNG
-#mapshot(mymap, file = "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/4. Gráficos/34.Mapa_NO2.png", quietly = TRUE)
+#mapshot(mymap, file = "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/4. Gráficos/33. Mapa_NO2.png", quietly = TRUE)
 
 # -----------------------------------------------------------
 # Sección 3: Colores

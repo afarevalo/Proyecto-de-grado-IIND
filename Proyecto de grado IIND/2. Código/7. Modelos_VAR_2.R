@@ -108,7 +108,7 @@ nivelk$selection
 # B: Regresión VAR.
 #Podemos volver a llamar la librería de vars y aplicar el regresión habiendo encontrado que p=2.
 library(vars)
-m0=vars::VAR(z, p=5)
+m0=vars::VAR(z, p=6)
 summary(m0)
 
 # -----------------------------------------------------------
@@ -168,8 +168,10 @@ plot(m1irf)
 
 #Apliquemos la predicción al segundo modelo. Esto, ya que la función VARpredict pertenece a la librería de MTS.
 #Igualmente, podemos observar que se generan los resultados de pronóstico de cada una de las series y las ecuaciones de estimación de las series.
+library(vars)
 predm2=VARpred(m2, 6)  #Podemos generar un pronóstico a 6 trimestres adelante.
-var_est3 <- VAR(y=z, lag.max = 20)
+head(z)
+var_est3 <- VAR(z, p = 2)
 summary(var_est3)
 
 # -----------------------------------------------------------
@@ -187,3 +189,57 @@ str(mr_lev)
 m.varf_lev_ft <- rbind(mr_lev[,3:5], matrix(NA, nhor,3 ))
 head(m.varf_lev_ft)
 tail(m.varf_lev_ft)
+
+#En la función de recuperación, especificamos los valores que se consideran del modelo seleccionado. Generamos igualmente una visualización del resultado.
+m.ft_df <- predm2$pred
+
+# Convertir las matrices a numéricas
+m.varf_lev_ft <- as.matrix(apply(m.varf_lev_ft, 2, as.numeric))
+m.ft_df <- as.matrix(apply(m.ft_df, 2, as.numeric))
+
+# Verificar las conversiones
+str(m.varf_lev_ft)
+str(m.ft_df)
+
+dim(m.varf_lev_ft)
+dim(m.ft_df)
+
+# Si `m.varf_lev_ft` tiene menos columnas, agrega columnas de ceros
+if (ncol(m.varf_lev_ft) < ncol(m.ft_df)) {
+  m.varf_lev_ft <- cbind(m.varf_lev_ft, matrix(0, nrow(m.varf_lev_ft), ncol(m.ft_df) - ncol(m.varf_lev_ft)))
+}
+
+# Si `m.ft_df` tiene menos columnas, agrega columnas de ceros
+if (ncol(m.ft_df) < ncol(m.varf_lev_ft)) {
+  m.ft_df <- cbind(m.ft_df, matrix(0, nrow(m.ft_df), ncol(m.varf_lev_ft) - ncol(m.ft_df)))
+}
+
+for(h in (nr_lev + 1):(nr_lev + nhor)) {
+  hf <- h - nr_lev
+  m.varf_lev_ft[h, ] <- m.varf_lev_ft[h - 1, ] + m.ft_df[hf, ]
+}
+
+# Verificar el resultado
+print(m.varf_lev_ft)
+
+# Asegúrate de que `str.main` tiene los nombres correctos de las variables
+str.main <- c("pm25", "radsolar", "ws", "pressure", "tmp")
+
+# Configurar el entorno de gráficos
+par(mfrow=c(3,1), mar=c(2,2,2,1))  # Ajusta `mar` para tener suficiente espacio para las etiquetas
+
+# Generar las gráficas
+for(i in 1:2) {
+  # Extraer la columna correspondiente de `m.varf_lev_ft`
+  df <- m.varf_lev_ft[, i]
+  
+  # Crear la gráfica
+  matplot(df, type="l", col="blue", lty=1, lwd=2, 
+          main=str.main[i], xlab="Tiempos", ylab="Valores")
+  
+  # Añadir línea vertical
+  abline(v=nr_lev, col="red", lty=2)
+}
+
+# Restablecer el entorno de gráficos a la configuración predeterminada
+par(mfrow=c(1,1))

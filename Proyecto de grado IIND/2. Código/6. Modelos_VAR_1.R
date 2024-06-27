@@ -41,7 +41,7 @@ list.files()
 
 ## Importacion de los datos ------------------
 install_formats() # Cuestiones de importacion de archivos del paquete rio
-da <- import("6. Bogota_Promedio_Dias_Act_VAR_1.xlsx")
+da <- import("7. Bogota_Promedio_Dias_Act_VECM.xlsx")
 
 # Convertir la base de datos "da" a formato ts
 da.ts <- ts(da[2:6], start = as.Date(2021), frequency = 365)
@@ -93,7 +93,7 @@ nivelk$selection
 # B: Regresión VAR.
 #Podemos volver a llamar la librería de vars y aplicar el regresión habiendo encontrado que p=2.
 library(vars)
-m0=vars::VAR(da.ts, p=2)
+m0=vars::VAR(da.ts, p=7)
 summary(m0)
 
 # El PM25 depende de si mismo, radsolar, o3 y ws, marginalmente no depende.  
@@ -144,10 +144,31 @@ MTSdiag(m2, adj=12) #Recordar que el modelo se reduce a 12 parámetros.
 # Sección 6. Análisis Impulso - Respuesta
 # -----------------------------------------------------------
 
+# Establecer la ruta y el nombre del archivo
+archivo <- "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/4. Gráficos/irf_plot.png"
+
+# Abrir el dispositivo PNG para grabar el gráfico
+png(filename = archivo)
+
 # La función de impulso respuesta se lleva a cabo mediante la librería de vars. La función es la irf(). Apliquemos la función al primer modelo.
 m1irf = irf(m0, n.ahead = 12, boot = TRUE)
 plot(m1irf) 
 # Se estabiliza a la media
+
+# Cerrar el dispositivo de gráficos
+dev.off()
+
+
+
+
+
+
+
+ggsave("37. Impulso - Respuesta VAR.png", 
+       plot = last_plot(), 
+       path = "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/4. Gráficos", 
+       width = 10, height = 6, units = "in", dpi = 300)
+
   
 # -----------------------------------------------------------
 # Sección 7: Predicción
@@ -156,6 +177,7 @@ plot(m1irf)
 #Apliquemos la predicción al segundo modelo. Esto, ya que la función VARpredict pertenece a la librería de MTS.
 #Igualmente, podemos observar que se generan los resultados de pronóstico de cada una de las series y las ecuaciones de estimación de las series.
 predm2=VARpred(m2, 6)  #Podemos generar un pronóstico a 6 trimestres adelante.
+print(head(da.ts))
 var_est3 <- VAR(y=z, lag.max = 2)
 summary(var_est3)
 

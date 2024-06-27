@@ -67,4 +67,5 @@ mymap <- ggplot(aqli) +
 mymap
 
 # Exportar como PNG
-ggsave("C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/4. Gráficos/32. Mapa Global de Concentraciones de PM2.5 - 2023.png", plot = mymap, width = 10, height = 8, units = "in")
+#ggsave("C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/4. Gráficos/32. Mapa Global de Concentraciones de PM2.5 - 2023.png", plot = mymap, width = 10, height = 8, units = "in")
+
