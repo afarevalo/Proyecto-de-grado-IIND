@@ -92,6 +92,17 @@ models$top_orders
 mod1 <- ardl(pm25 ~ radsolar + ws + pressure + tmp, data = z, lamda = TRUE ,order = c(6,6,6,6,6))
 summary(mod1)
 
+modelo_ARDL <- summary(mod1)
+
+# Capturar la salida y escribirla en un archivo
+output <- capture.output(modelo_ARDL)
+writeLines(output, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/5. Salidas de R/20. Model_ARDL.doc")
+
+# Capturar la salida y escribirla en un archivo
+output <- capture.output(modelo_VECM)
+writeLines(output, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/5. Salidas de R/19. Model_VECM.doc")
+
+
 # Para la interpretación, podemos imprimir los rezagos correspondientes de cada variable que explican la respuesta.
 mod1$full_formula
 

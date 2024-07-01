@@ -110,6 +110,11 @@ nivelk$selection
 library(vars)
 m0=vars::VAR(z, p=6)
 summary(m0)
+modelo_VAR <- summary(m0)
+
+# Capturar la salida y escribirla en un archivo
+output <- capture.output(modelo_VAR)
+writeLines(output, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/5. Salidas de R/18. Model_VAR.doc")
 
 # -----------------------------------------------------------
 # Sección 5: Modelación con libreria MTS

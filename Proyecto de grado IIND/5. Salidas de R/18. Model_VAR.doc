@@ -1,0 +1,64 @@
+
+VAR Estimation Results:
+========================= 
+Endogenous variables: pm25, radsolar, ws, pressure, tmp 
+Deterministic variables: const 
+Sample size: 1240 
+Log Likelihood: -5150.775 
+Roots of the characteristic polynomial:
+0.8358 0.8358 0.7701 0.7701 0.7648 0.7648 0.7566 0.7566 0.7228 0.7228 0.7199 0.7199 0.7089 0.7089 0.6731 0.6731 0.6589 0.6589 0.6571 0.6571 0.6462 0.6462 0.6267 0.6267 0.5998 0.5998 0.5729 0.5729  0.55 0.2151
+Call:
+vars::VAR(y = z, p = 6)
+
+
+Estimation results for equation pm25: 
+===================================== 
+pm25 = pm25.l1 + radsolar.l1 + ws.l1 + pressure.l1 + tmp.l1 + pm25.l2 + radsolar.l2 + ws.l2 + pressure.l2 + tmp.l2 + pm25.l3 + radsolar.l3 + ws.l3 + pressure.l3 + tmp.l3 + pm25.l4 + radsolar.l4 + ws.l4 + pressure.l4 + tmp.l4 + pm25.l5 + radsolar.l5 + ws.l5 + pressure.l5 + tmp.l5 + pm25.l6 + radsolar.l6 + ws.l6 + pressure.l6 + tmp.l6 + const 
+
+              Estimate Std. Error t value Pr(>|t|)    
+pm25.l1     -0.3165287  0.0327287  -9.671  < 2e-16 ***
+radsolar.l1  0.0030945  0.0006261   4.942 8.81e-07 ***
+ws.l1       -0.3353400  0.1191945  -2.813 0.004982 ** 
+pressure.l1  0.0562054  0.0598389   0.939 0.347775    
+tmp.l1      -0.8099716  0.4529400  -1.788 0.073985 .  
+pm25.l2     -0.3541020  0.0332173 -10.660  < 2e-16 ***
+radsolar.l2  0.0030201  0.0007185   4.203 2.82e-05 ***
+ws.l2       -0.2490528  0.1285473  -1.937 0.052924 .  
+pressure.l2  0.0652940  0.0606256   1.077 0.281693    
+tmp.l2      -0.0750669  0.5080467  -0.148 0.882560    
+pm25.l3     -0.3536630  0.0343437 -10.298  < 2e-16 ***
+radsolar.l3  0.0031671  0.0007655   4.137 3.76e-05 ***
+ws.l3       -0.3097759  0.1330102  -2.329 0.020025 *  
+pressure.l3  0.1526315  0.0662897   2.302 0.021477 *  
+tmp.l3      -0.4726784  0.5312198  -0.890 0.373751    
+pm25.l4     -0.2467442  0.0339996  -7.257 7.04e-13 ***
+radsolar.l4  0.0020597  0.0007679   2.682 0.007409 ** 
+ws.l4       -0.2223793  0.1328150  -1.674 0.094320 .  
+pressure.l4 -0.1050575  0.0662721  -1.585 0.113172    
+tmp.l4      -0.3841616  0.5310464  -0.723 0.469571    
+pm25.l5     -0.2895740  0.0327510  -8.842  < 2e-16 ***
+radsolar.l5  0.0020944  0.0007215   2.903 0.003762 ** 
+ws.l5       -0.3149695  0.1282443  -2.456 0.014189 *  
+pressure.l5 -0.0075714  0.0607925  -0.125 0.900904    
+tmp.l5      -0.7268862  0.5065291  -1.435 0.151536    
+pm25.l6     -0.1957644  0.0318951  -6.138 1.13e-09 ***
+radsolar.l6  0.0022301  0.0006236   3.576 0.000362 ***
+ws.l6       -0.2775120  0.1177154  -2.357 0.018558 *  
+pressure.l6  0.0838347  0.0586769   1.429 0.153334    
+tmp.l6      -0.7740035  0.4507985  -1.717 0.086242 .  
+const       -0.0008469  0.0186004  -0.046 0.963693    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+
+Residual standard error: 0.6549 on 1209 degrees of freedom
+Multiple R-Squared: 0.2111,	Adjusted R-squared: 0.1915 
+F-statistic: 10.78 on 30 and 1209 DF,  p-value: < 2.2e-16 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+
+Residual standard error: 0.05003 on 1209 degrees of freedom
+Multiple R-Squared: 0.2635,	Adjusted R-squared: 0.2452 
+F-statistic: 14.42 on 30 and 1209 DF,  p-value: < 2.2e-16 
+

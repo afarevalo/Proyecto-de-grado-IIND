@@ -115,6 +115,12 @@ str(z)
 vecm1 = VECM(z, lag=7, r=4, estim = ("ML"))
 summary(vecm1)
 
+modelo_VECM <- summary(vecm1)
+
+# Capturar la salida y escribirla en un archivo
+output <- capture.output(modelo_VECM)
+writeLines(output, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/5. Salidas de R/19. Model_VECM.doc")
+
 # Relacion A largo plazo 
 # El pm2.5 consigo mismo tiene un equilibrio en sus resagos.
 # El pm2.5 con la tmp tiene un equilibrio a largo plazo en sus resagos.

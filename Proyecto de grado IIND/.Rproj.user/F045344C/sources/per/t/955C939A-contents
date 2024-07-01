@@ -1,0 +1,317 @@
+# -----------------------------------------------------------
+# Sección 1: Preparación de datos
+# -----------------------------------------------------------
+
+# Limpiar el entorno
+rm(list = ls())
+
+## Librerias ------------------
+library(pacman)
+library(tidyverse) # Paquete grande de manipulacion
+library(lubridate) # Paquete para manejo de fechas
+library(skimr)     # Paquete para revision de datos
+library(stargazer) # Paquete de tablas "bonitas", regs y estad desc
+library(dplyr)     # Paquete parte de tidyverse donde esta mutate, select, filter, summarise...
+library(rio)       # Paquete de importacion/exportacion de datos
+library(gridExtra)
+library(patchwork)
+library(stats)
+library(readxl)
+library(writexl)
+library(ggplot2)
+library(officer)
+library(flextable)
+library(pscl)
+library(corrplot)   # Para el gráfico de correlación
+library(forecast)
+library(tseries)
+
+library(devtools)
+library(fpp3)
+library(urca)
+library(vars)
+library(MTS)
+library(tseries) # Importamos la librería de tserires para la aplicación de la prueba de Dickey Fuller.
+
+library(lmtest)
+library(MASS)
+library(survival)
+library(fitdistrplus)
+library(rriskDistributions)
+library(car)
+
+# Manejo del directorio
+getwd()
+directorio <- "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos"
+setwd(directorio)
+
+# Chequeo de los archivos del directorio
+dir()
+list.files()
+
+## Importacion de los datos ------------------
+install_formats() # Cuestiones de importacion de archivos del paquete rio
+data <- import("6. Bogota_Promedio_Dias_Act_Todos.xlsx")
+
+# -----------------------------------------------------------
+# Sección 2: Comportamiento de la variable PM25
+# -----------------------------------------------------------
+
+# Histograma de PM2.5
+ggplot(data, aes(x = pm25)) +
+  geom_histogram(binwidth = 5, fill = "blue", color = "black") +
+  labs(title = "Histograma de PM2.5",
+       x = "Concentración de PM2.5 (μg/m3)") +
+  
+  # Un tema minimalista
+  theme_minimal() + 
+  
+  # Alineación del título
+  theme(plot.title = element_text(hjust = 0.5))
+
+# vector variable pm2021
+pm25 <- data$pm25
+
+ajusteR <- fitdist(pm25, "gamma")
+resultadoR<- gofstat(ajusteR)
+resultadoR$chisqpvalue
+plot(ajusteR)
+fit.cont(pm25)
+
+# Transformar la variable pm25 a una distribución Normal
+boxcox(pm25 ~ 1, data = data, lambda = seq(-2, 2, by = 0.1))
+data$pm25_norm <- bcPower(data$pm25, lambda = 0.3)
+
+# vector variable pm25
+pm25_norm <- data$pm25_norm
+
+fit.cont(pm25_norm)
+
+# -----------------------------------------------------------
+# Sección 3: Comportamiento de la variable tmp
+# -----------------------------------------------------------
+
+ggplot(data, aes(x = tmp)) +
+  geom_histogram(binwidth = 5, fill = "blue", color = "black") +
+  labs(title = "Histograma de tmp",
+       x = "Temperatura en grados Celsius") +
+  
+  # Un tema minimalista
+  theme_minimal() + 
+  
+  # Alineación del título
+  theme(plot.title = element_text(hjust = 0.5))
+
+# vector variable pm2021
+tmp <- data$tmp
+
+ajusteR <- fitdist(tmp, "gamma")
+resultadoR<- gofstat(ajusteR)
+resultadoR$chisqpvalue
+plot(ajusteR)
+fit.cont(tmp)
+
+# Transformar la variable tmp a una distribución normal
+data$ln_tmp <- log(data$tmp)
+
+# vector variable tmp
+ln_tmp <- data$ln_tmp
+fit.cont(ln_tmp)
+
+# -----------------------------------------------------------
+# Sección 4: Comportamiento de la variable radsolar
+# -----------------------------------------------------------
+
+ggplot(data, aes(x = radsolar)) +
+  geom_histogram(binwidth = 5, fill = "blue", color = "black") +
+  labs(title = "Histograma de radsolar",
+       x = "radsolar en (W/M²)") +
+  
+  # Un tema minimalista
+  theme_minimal() + 
+  
+  # Alineación del título
+  theme(plot.title = element_text(hjust = 0.5))
+
+# vector variable pm2021
+radsolar <- data$radsolar
+
+ajusteR <- fitdist(radsolar, "norm")
+resultadoR<- gofstat(ajusteR)
+resultadoR$chisqpvalue
+plot(ajusteR)
+fit.cont(radsolar)
+
+# radsolar tiene una distribución normal
+
+# -----------------------------------------------------------
+# Sección 5: Comportamiento de la variable pressure
+# -----------------------------------------------------------
+
+pressure <- data$pressure
+
+hist(pressure)
+ajusteR <- fitdist(pressure, "norm")
+resultadoR<- gofstat(ajusteR)
+resultadoR$chisqpvalue
+plot(ajusteR)
+fit.cont(pressure)
+
+# pressure tiene una distribución normal
+
+# -----------------------------------------------------------
+# Sección 6: Comportamiento de la variable ws
+# -----------------------------------------------------------
+
+# vector variable pm2021
+ws <- data$ws
+
+hist(ws)
+ajusteR <- fitdist(ws, "norm")
+resultadoR<- gofstat(ajusteR)
+resultadoR$chisqpvalue
+plot(ajusteR)
+fit.cont(ws)
+
+# ws tiene una distribución normal
+
+# Exprtar data
+# write_xlsx(data, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/7. Bogota_Promedio_Dias_Act_VECM.xlsx")
+
+# -----------------------------------------------------------
+# Sección 7: Comportamiento de la variable o3
+# -----------------------------------------------------------
+
+# vector variable o3
+o3 <- data$o3_new
+
+hist(o3)
+ajusteR <- fitdist(o3, "gamma")
+resultadoR<- gofstat(ajusteR)
+resultadoR$chisqpvalue
+plot(ajusteR)
+fit.cont(o3)
+# Chi cuadrado
+
+# Transformar la variable tmp a una distribución normal
+data$ln_o3 <- log(data$o3)
+
+# vector variable tmp
+ln_o3 <- data$ln_o3
+fit.cont(ln_o3)
+
+# -----------------------------------------------------------
+# Sección 8: Comportamiento de la variable no2
+# -----------------------------------------------------------
+
+# vector variable no2
+no2 <- data$no2_new
+
+hist(no2)
+ajusteR <- fitdist(no2, "norm")
+resultadoR<- gofstat(ajusteR)
+resultadoR$chisqpvalue
+plot(ajusteR)
+fit.cont(no2)
+
+# Transformar la variable pm25 a una distribución Normal
+boxcox(no2 ~ 1, data = data, lambda = seq(-2, 2, by = 0.1))
+data$no2_norm <- bcPower(data$no2, lambda = 0.3)
+
+# vector variable pm25
+no2_norm <- data$no2_norm
+fit.cont(no2_norm)
+
+# -----------------------------------------------------------
+# Sección 9: Comportamiento de la variable co
+# -----------------------------------------------------------
+
+# vector variable co
+co <- data$co_new
+
+hist(co)
+ajusteR <- fitdist(co, "gamma")
+resultadoR<- gofstat(ajusteR)
+resultadoR$chisqpvalue
+plot(ajusteR)
+fit.cont(co)
+
+# Transformar la variable tmp a una distribución normal
+data$ln_co <- log(data$co)
+
+# vector variable tmp
+ln_co <- data$ln_co
+fit.cont(ln_co)
+
+# -----------------------------------------------------------
+# Sección 10: Comportamiento de la variable so2
+# -----------------------------------------------------------
+
+# vector variable so2
+so2 <- data$so2_new
+
+hist(so2)
+ajusteR <- fitdist(so2, "norm")
+resultadoR<- gofstat(ajusteR)
+resultadoR$chisqpvalue
+plot(ajusteR)
+fit.cont(so2)
+#Sigue una lognormal
+
+# Transformar la variable tmp a una distribución normal
+data$ln_so2 <- log(data$so2)
+
+# vector variable tmp
+ln_so2 <- data$ln_so2
+fit.cont(ln_so2)
+
+# -----------------------------------------------------------
+# Sección 11: Comportamiento de la variable PM10
+# -----------------------------------------------------------
+
+# Histograma de PM10
+ggplot(data, aes(x = pm10)) +
+  geom_histogram(binwidth = 5, fill = "blue", color = "black") +
+  labs(title = "Histograma de PM10",
+       x = "Concentración de PM10 (μg/m3)") +
+  
+  # Un tema minimalista
+  theme_minimal() + 
+  
+  # Alineación del título
+  theme(plot.title = element_text(hjust = 0.5))
+
+# vector variable pm10
+pm10 <- data$pm10
+
+ajusteR <- fitdist(pm10, "gamma")
+resultadoR<- gofstat(ajusteR)
+resultadoR$chisqpvalue
+plot(ajusteR)
+fit.cont(pm10)
+
+# Transformar la variable pm25 a una distribución Normal
+boxcox(pm25 ~ 1, data = data, lambda = seq(-2, 2, by = 0.1))
+data$pm10_norm <- bcPower(data$pm10, lambda = 0.3)
+
+# vector variable pm10
+pm10_norm <- data$pm10_norm
+fit.cont(pm10_norm)
+
+# -----------------------------------------------------------
+# Sección 12: Comportamiento de la variable rh
+# -----------------------------------------------------------
+
+# vector variable rh
+rh <- data$rh
+
+hist(rh)
+ajusteR <- fitdist(rh, "norm")
+resultadoR<- gofstat(ajusteR)
+resultadoR$chisqpvalue
+plot(ajusteR)
+fit.cont(rh)
+#Sigue una normal
+
+write_xlsx(data, "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/1. Datos/7. Bogota_Promedio_Dias_Act_Todos.xlsx")
+

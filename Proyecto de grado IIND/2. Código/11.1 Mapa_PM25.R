@@ -85,4 +85,4 @@ mymap
 library(mapview)
 
 # Guardar el mapa como PNG
-mapshot(mymap, file = "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/4. Gráficos/34.Mapa_PM25.png", quietly = TRUE)
+#mapshot(mymap, file = "C:/Users/windows/Documents/GitHub/Problem_Set_1/Proyecto-de-grado-IIND/Proyecto de grado IIND/4. Gráficos/34.Mapa_PM25.png", quietly = TRUE)
