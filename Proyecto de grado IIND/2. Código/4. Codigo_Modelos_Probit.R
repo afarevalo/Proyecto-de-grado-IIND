@@ -193,7 +193,7 @@ ggsave("12. Evoluación de la probabilidad con Viento - PM2.5.png",
 # Crear variables de los excedentes
 data <- data %>% mutate(no2_new = ((no2/(10^9))*(1000)*(1/((1*0.082*(tmp+273.15))/(pressure/760)))*(46.0055/1)*((10^6)/1)))
 data <- data %>% mutate(ex_no2 = case_when(no2_new >= 25 ~ 1,
-                                          .default = 0))
+                                           .default = 0))
 
 # Estimacion de la probabilidad de exceder el AGQ - Modelo PROBIT
 # Variable dependiente: ex_pm
